@@ -2,7 +2,7 @@ import threading
 import subprocess
 import importlib
 
-def exec_pc(script):
+def exec_paddle(script):
     subprocess.run(['python', script])
 
 def exec_state(script):
@@ -11,10 +11,10 @@ def exec_state(script):
 
 def main():
     state = 'state.py'
-    pc = 'pc.py'
+    paddle = 'paddle.py'
 
     thread_state = threading.Thread(target = exec_state, args = (state,))
-    thread_pc = threading.Thread(target = exec_pc, args = (pc,))
+    thread_pc = threading.Thread(target = exec_paddle, args = (paddle,))
 
     thread_state.start()
     thread_pc.start()
