@@ -98,7 +98,7 @@ Quisas
 
 ### Pruebas Unitarias
 
-- [unittest]()
+- [unittest](https://docs.python.org/3/library/unittest.html)
 
 - [pytest](https://docs.pytest.org/en)
 
@@ -122,12 +122,52 @@ Quisas
 
 * Lunes 27: Contar numero de rallis y largo de rallis
 
+## Prerequisitos
+
+- [Python 3](https://www.python.org/)
+
+- [Virtualenv](https://virtualenv.pypa.io/en/latest/)
+
+- `Requeriments.txt`
+
 ## Uso 
 
-69. Instalar dependencias 
+1. Clonar el repositorio:
 
 ```
-$ pip install -r requirements.txt
+$ git clone git@github.com:Fuan200/bong_simulation.git
+```
+
+2. Crear un entorno virtual (recomendado, si no pasar al paso número 4), puedes cambiar el segundo `venv` por el nombre que se quiera:
+
+```
+$ python -m venv venv
+```
+
+3. Activar el entorno virtual:
+
+* En Windows:
+
+```
+    venv\Scripts\activate
+```
+
+* En macOS and Linux:
+
+```
+    . ./bin/activate
+```
+
+4. Instalar dependencias:
+
+```
+$ pip install -r requeriments.txt
+```
+
+5. Para ejecutar el programa:
+
+```
+$ python main.py
 ```
 
 ## Autores
