@@ -6,14 +6,14 @@ from colors import get_rgb
 screen_width = 0
 screen_height = 0
 ball_radius = 20
-ball_speed = 20
+ball_speed = 10
 
-serving_angle = random.uniform(-45, 45)
+#serving_angle = random.uniform(10, 10)
 
 ball_x = 0
 ball_y = 0
 
-ball_speed_x = 1
+ball_speed_x = random.choice([-1, 1])
 ball_speed_y = 1
 
 paddle_width = 0
@@ -62,8 +62,8 @@ def main():
         if ball_y >= screen_height - ball_radius:
             ball_x = random.randint(ball_radius, screen_width - ball_radius)
             ball_y = 0
-            serving_angle = random.uniform(-45, 45)
-            ball_speed_x = 1
+            #serving_angle = random.uniform(10, 10)
+            ball_speed_x = random.choice([-1, 1])
             ball_speed_y = 1
 
         screen.fill(get_rgb('black'))
