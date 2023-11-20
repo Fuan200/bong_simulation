@@ -2,6 +2,7 @@ import pygame
 import random
 from screen_percentage import get_width, get_height
 from colors import get_rgb
+from position import get_position
 
 screen_width = 0
 screen_height = 0
@@ -68,7 +69,8 @@ def main():
 
         screen.fill(get_rgb('black'))
 
-        pygame.draw.circle(screen, get_rgb('magenta'), (int(ball_x), int(ball_y)), ball_radius)
+        ball = pygame.draw.circle(screen, get_rgb('magenta'), (int(ball_x), int(ball_y)), ball_radius)
+        print(get_position(ball))
 
         pygame.draw.rect(screen, get_rgb('white'), (paddle_x, screen_height - paddle_height, paddle_width, paddle_height))
 
