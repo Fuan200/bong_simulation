@@ -9,7 +9,7 @@ screen_height = 0
 ball_radius = 20
 ball_speed = 10
 
-#serving_angle = random.uniform(10, 10)
+# serving_angle = random.uniform(10, 10)
 
 ball_x = 0
 ball_y = 0
@@ -21,7 +21,7 @@ paddle_width = 0
 paddle_height = 20
 paddle_x = 0
 
-def main():
+def main(pThread):
     pygame.init()
 
     global screen_width, screen_height, ball_x, ball_y, ball_speed_x, ball_speed_y, paddle_width, paddle_x
@@ -39,11 +39,13 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
 
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_LEFT] and paddle_x > 0:
-            paddle_x -= 2
-        if keys[pygame.K_RIGHT] and paddle_x < screen_width - paddle_width:
-            paddle_x += 2
+        # Actualiza la posición de la plataforma según la posición de la pelota
+        #paddle_x = ball_x - paddle_width / 2
+        dir = pThread.get_direction()
+        if dir == 1:
+            paddle_x -=1
+        elif dir == -1:
+            paddle_x +=1
 
         ball_x += ball_speed_x
         ball_y += ball_speed_y
@@ -63,7 +65,6 @@ def main():
         if ball_y >= screen_height - ball_radius:
             ball_x = random.randint(ball_radius, screen_width - ball_radius)
             ball_y = 0
-            #serving_angle = random.uniform(10, 10)
             ball_speed_x = random.choice([-1, 1])
             ball_speed_y = 1
 
@@ -77,3 +78,6 @@ def main():
         pygame.display.flip()
     
     pygame.quit()
+
+if __name__ == "__main__":
+    main()
