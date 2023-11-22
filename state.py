@@ -3,13 +3,12 @@ import random
 from screen_percentage import get_width, get_height
 from colors import get_rgb
 from position import get_position
+from paddle import PaddleThread
 
 screen_width = 0
 screen_height = 0
 ball_radius = 20
 ball_speed = 10
-
-# serving_angle = random.uniform(10, 10)
 
 ball_x = 0
 ball_y = 0
@@ -39,13 +38,11 @@ def main(pThread):
             if event.type == pygame.QUIT:
                 running = False
 
+        # Obtén la posición actual de la pelota
+        ball_position = (ball_x, ball_y)
+
         # Actualiza la posición de la plataforma según la posición de la pelota
-        #paddle_x = ball_x - paddle_width / 2
-        dir = pThread.get_direction()
-        if dir == 1:
-            paddle_x -=1
-        elif dir == -1:
-            paddle_x +=1
+        paddle_x = pThread.get_paddle_position(ball_position, paddle_width)
 
         ball_x += ball_speed_x
         ball_y += ball_speed_y
