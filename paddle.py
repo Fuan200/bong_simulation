@@ -6,42 +6,47 @@ class PaddleThread(threading.Thread):
         threading.Thread.__init__(self) 
         self.thread_name = thread_name 
         self.thread_ID = thread_ID 
-        self.direction = 1
-        self.time = 0
- 
+        self.direction = 0
+        self.position = 0
+        self.target_position = 0
+        self.shouldRun = True
+    
+    def notifyQuit(self):
+        self.shouldRun = False
+
+    def notifyCeilingTouch(self, ball_position, ball_speed,ball_radius,screen_size):
+        # Simulate floor travel path
+        curr_ball_x, curr_ball_y = ball_position
+        curr_ball_speed_x, curr_ball_speed_y = ball_speed
+        screen_width, screen_height = screen_size
+
+        while curr_ball_y <= screen_height:
+            curr_ball_x += curr_ball_speed_x
+            curr_ball_y += curr_ball_speed_y
+
+            if curr_ball_y < ball_radius:
+                curr_ball_speed_y = -curr_ball_speed_y
+                curr_ball_y = ball_radius
+            
+            if curr_ball_x <= 10 <= ball_radius or curr_ball_x >= screen_width-10:
+                curr_ball_speed_x *= -1
+        self.target_position = curr_ball_x - screen_width//2
+        print("Predicted position: "+str(self.target_position))
+
     def run(self): 
-        while True:
-            sleep(0.001)
-            if self.time > 500:
-                self.direction *= -1
-                self.time = 0 
-
-        # Asegurarse de que la plataforma no se salga de los bordes izquierdo y derecho
-            if self.direction == 1:
-                self.thread_ID += 1
+        while self.shouldRun:
+            sleep(0.0001)
+            if abs(self.target_position-self.position) < 5:
+                self.direction = 0
+            elif self.target_position > self.position:
+                self.direction = 1
             else:
-                self.thread_ID -= 1
+                self.direction = -1
+            #print("Current position: "+str(self.position)+" Final position: "+str(self.target_position)+" Direction: "+str(self.direction))
 
-            self.time += 1
-
+    def notifyFrame(self,screen_size):
+        screen_width, screen_height = screen_size
+        self.position += self.direction*((screen_height)/screen_width)
 
     def get_direction(self):
-        self.time += 1
         return self.direction
-
-    def get_paddle_position(self, ball_position, paddle_width):
-        paddle_center = paddle_width / 2
-        ball_x, ball_y = ball_position
-
-        if ball_y < self.thread_ID - paddle_center:
-        # Mover la plataforma hacia la posición x de la pelota
-            target_position = ball_x - paddle_center
-        # Asegurarse de que la plataforma no se salga del borde izquierdo
-            return max(0, min(target_position, self.thread_ID - paddle_width))
-        else:
-        # Colocar la plataforma en el centro horizontal de la pantalla, permitiendo un rango más amplio
-            target_position = ball_x - paddle_center
-        # Asegurarse de que la plataforma no se salga del borde derecho
-            return max(0, min(target_position, self.thread_ID - paddle_width))
-
-

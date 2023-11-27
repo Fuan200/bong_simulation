@@ -10,3 +10,5 @@ pyvenv.cfg
 pip-selfcheck.json
 
 __pycache__
+
+universo.txt

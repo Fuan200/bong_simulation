@@ -90,7 +90,7 @@ Este proyecto consiste en la implementación de un juego de Pong en Python utili
 
 ### POO
 
-Quisas
+Si
 
 ### Infraestructura para el Juego
 
